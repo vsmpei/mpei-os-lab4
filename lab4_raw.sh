@@ -62,7 +62,7 @@ while [[ $ok -eq 0 ]]; do # пока флаг проверки 0
 done
 
 # поиск файла с посещаемостью 
-file_path=$(find ./labfiles/$sub_name -name "$group_num-attendance") # результат записываем в переменную
+file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # результат записываем в переменную
 
 # проверка, найден ли файл с посещаемостью
 if ! [[ -z $file_path ]]; then
@@ -162,7 +162,7 @@ while [[ $ok -eq 0 ]]; do # пока флаг проверки 0
 done
 
 # поиск файла с посещаемостью 
-file_path=$(find ./labfiles/$sub_name -name "$group_num-attendance") # результат записываем в переменную
+file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # результат записываем в переменную
 
 # проверка, найден ли файл с посещаемостью
 if ! [[ -z $file_path ]]; then
@@ -214,7 +214,7 @@ done
 file_name=$(echo $s_sname | sed "s/[a-z]*$/Names.log/g")
 
 # ищем лог файл по строке, полученной выше
-file_path=$(find labfiles/ -name $file_name)
+file_path=$(find $dir_path/ -name $file_name)
 
 # тут совпадение и номер строки
 # затем убираем совпадение, чтобы остался только номер
@@ -311,7 +311,7 @@ while [[ $ok -eq 0 ]]; do # пока флаг проверки 0
 done
 
 # поиск файла с тестом
-file_path=$(find ./labfiles/$sub_name -name "TEST-$test_num") # результат записываем в переменную
+file_path=$(find $dir_path/$sub_name -name "TEST-$test_num") # результат записываем в переменную
 
 # контроль найденного файла
 # echo "$file_path"
@@ -351,20 +351,29 @@ echo ""
 }
 
 #--------------------------------------------------------------------
-# проверка нахождения в текущей директории
-# каталога labfiles 
+# задание и проверка пути к каталогу labfiles
 #--------------------------------------------------------------------
 
-dir_path=$(find . -maxdepth 1 -type d -name "labfiles") # ищем ТОЛЬКО в текущей директории каталог labfiles
+echo "Введите путь к каталогу labfiles или введите ключ D"
+echo "чтобы использовать путь к каталогу по умолчанию:"
 
-# echo $dir_path # контроль адреса каталога
+while [[ $ok -eq 0 ]]; do
 
-if [[ -z "$dir_path" ]]; then
-	echo "Ошибка: в директории . отсутствует каталог labfiles!"
-	dir_ok=0 # присваиваем переменной проверки каталога 0
-else
-	dir_path="" # присваиваем переменной пути к каталогу пустое значение
-fi
+	read dir_path # читаем (вводим) путь к файлу или ключ 
+	
+	if [[ -d $dir_path && $dir_path =~ .+labfiles$ ]]; then
+		ok=1
+	elif [[ "$dir_path" == "D" ]]; then 
+		echo "ВНИМАНИЕ: будет использован путь по умолчанию (в текущей папке)"
+		dir_path="./labfiles"
+		ok=1
+	else
+	        echo "Ошибка: неправильно введен путь или такой каталог не существует!"
+                echo "Попробуйте ещё раз!"
+	fi
+done
+
+echo -e "\nПуть к директории labfiles: $dir_path\n" # контроль адреса каталога
 
 #--------------------------------------------------------------------
 # меню скрипта через цикл while
