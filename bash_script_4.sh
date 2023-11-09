@@ -68,11 +68,11 @@ while [[ $ok -eq 0 ]]; do # пока флаг проверки 0
 
         read -p "-> " test_num # вводим
 
-        if ! [[ $test_num -gt 4 || $test_num -le 0 ]]; then # проверка диапазона
+        if ! [[ $test_num =~ ^[^0-9]+$ || $test_num -gt 4 || $test_num -le 0 ]]; then # проверка диапазона
                 # все ОК
                 ok=1 # выходим из цикла
         else # ошибка при вводе
-                echo -e "\n${RED}ОШИБКА: номер теста введен неверно!  Введите в диапазоне от 1 до 4!${NORMAL}\n"
+                echo -e "\n${RED}ОШИБКА: неверный формат ввода!  Введите целое число в диапазоне от 1 до 4!${NORMAL}\n"
         fi
 
 done
@@ -97,11 +97,11 @@ while [[ $ok -eq 0 ]]; do # пока флаг проверки 0
 
         read -p "-> " line_count # вводим
 
-        if ! [[ $line_count -gt $stud_count || $line_count -le 0 ]]; then # проверка диапазона
+        if ! [[ $line_count =~ ^[^0-9]+$ || $line_count -gt $stud_count || $line_count -le 0 ]]; then # проверка диапазона
              # все ОТЛИЧНО
                 ok=1 # выходим из цикла
         else # ошибка при вводе
-                echo -e "\n${RED}ОШИБКА: выход за диапазон! Введите в диапазоне от 1 до $stud_count!${NORMAL}\n"
+                echo -e "\n${RED}ОШИБКА: неверный формат ввода! Введите целое число в диапазоне от 1 до $stud_count!${NORMAL}\n"
         fi
 
 done
