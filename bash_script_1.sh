@@ -84,7 +84,7 @@ done
 file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # результат записываем в переменную
 
 # проверка, найден ли файл с посещаемостью
-if ! [[ -z $file_path ]]; then
+if [[ ! -z $file_path ]] && [[ -s $file_path ]]; then
 
         echo -e "${GREEN}Введите 1 для выбора сортировки по возрастанию и 2 по убыванию:${NORMAL}"
 
@@ -127,6 +127,11 @@ if ! [[ -z $file_path ]]; then
 # сортировка с ключом -r ~ reverse
 
         fi
+# если файл с данными пуст
+elif [[ ! -z $file_path ]] && [[ ! -s $file_path ]]; then
+        echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num пуст!${NORMAL}\n"
+
+
 else
         echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num не найден!${NORMAL}\n"
 fi
