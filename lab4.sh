@@ -82,6 +82,7 @@ file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # резул
         
 	db_ok=0
 
+	if [[ ! -z $file_path ]]; then
 	# считаем количество строк совпадающих с шаблоном
 	# и сравниваем их с итоговым количеством строк
 	str_count_all=$(wc -l $file_path | awk '{print $1}') # wc так же выводила адрес файла, с помощью awk это было убрано
@@ -97,6 +98,7 @@ file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # резул
 	else
                 echo -e "\n${RED}ОШИБКА: файл группы $group_num поврежден!${NORMAL}\n"
         fi
+fi
 #------------------------------------------------------------------------------
 
 
@@ -149,7 +151,8 @@ if [[ ! -z $file_path ]] && [[ -s $file_path ]] && [[ $db_ok == 1 ]]; then
 elif [[ ! -z $file_path ]] && [[ ! -s $file_path ]]; then
         echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num пуст!${NORMAL}\n"
 
-elif [[ -z $file_path ]] && [[ ! -s $file_path ]]; then	
+# если файл не существует
+elif [[ -z $file_path ]]; then	
 	echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num не найден!${NORMAL}\n"
 
 fi
