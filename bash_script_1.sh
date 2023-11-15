@@ -34,6 +34,38 @@ else
 	dir_path="labfiles"
 fi
 
+#--------------------------------------------------------------------
+# проверка соержимого файла для пукнтов 1 и 2 
+#--------------------------------------------------------------------
+
+check_database()
+{
+        # сбрасываем флаг
+        db_ok=0
+
+        # если такой файл существует
+        if [[ ! -z $file_path ]]; then
+
+        # считаем количество строк совпадающих с шаблоном
+        # и сравниваем их с итоговым количеством строк
+        str_count_all=$(wc -l $file_path | awk '{print $1}') # wc так же выводила адрес файла, с помощью awk это было убрано
+        first_str_count=$(cut -d' ' -f1 $file_path | grep -cE "^[A-Za-z]+$" )
+        second_str_count=$(cut -d' ' -f2 $file_path | grep -cE "^[01]+$" )
+
+# контроль содержимого переменных 
+#        echo "STR_COUNT: $str_count_all" # контроль
+#        echo "FIRST_STR_COUNT: $first_str_count" # контроль
+#        echo "SECOND_STR_COUNT: $second_str_count" # контроль
+
+        # само сравнение
+        if [[ $str_count_all == $first_str_count ]] && [[ $str_count_all == $second_str_count  ]]; then # если все ОК
+                db_ok=1 # поднимаем флаг
+        else
+                echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num поврежден!${NORMAL}\n"
+        fi
+fi
+
+}
 
 #--------------------------------------------------------------------
 # выводит упорядоченный по посещаемости список группы
@@ -83,8 +115,11 @@ done
 # поиск файла с посещаемостью 
 file_path=$(find $dir_path/$sub_name -name "$group_num-attendance") # результат записываем в переменную
 
+# вызов функции проверки содержимого файла с посещаемостью
+check_database
+
 # проверка, найден ли файл с посещаемостью
-if [[ ! -z $file_path ]] && [[ -s $file_path ]]; then
+if [[ ! -z $file_path ]] && [[ -s $file_path ]] && [[ $db_ok == 1 ]]; then
 
         echo -e "${GREEN}Введите 1 для выбора сортировки по возрастанию и 2 по убыванию:${NORMAL}"
 
@@ -117,23 +152,26 @@ if [[ ! -z $file_path ]] && [[ -s $file_path ]]; then
 # c помощью встроенной в awk функции lenght () -> записываем результат в третье поле->
 # -> выводим на экран 
 
-        if [[ $ch == 1 ]]; then # снова сравниваем это что-то с ЧИСЛОМ
+if [[ $ch == 1 ]]; then # снова сравниваем это что-то с ЧИСЛОМ
              # сортировка по возрастанию
-                awk '{$3=$2; gsub(/0/, "", $3); len=length($3); gsub(/1*/, len, $3); print $1 "   " $2  "   " $3}' $file_path | sort -n -k3 | column -t -o "    |  "
+                awk '{$3=$2; gsub(/0/, "", $3); len=length($3); gsub(/1*/, len, $3); print $1 "   " $2  "   " $3}' $file_path | sort -k3n -k1 |  column -t -o "    |  "
 # поэтапное преобразование исходного списка и сортировка
 
         else # сортировка по убыванию
-                awk '{$3=$2; gsub(/0/, "", $3); len=length($3); gsub(/1*/, len, $3); print $1 "   " $2  "   " $3}' $file_path | sort -nr -k3 | column -t -o "   |   "
+                awk '{$3=$2; gsub(/0/, "", $3); len=length($3); gsub(/1*/, len, $3); print $1 "   " $2  "   " $3}' $file_path | sort -k3nr -k1 | column -t -o "    |  "
 # сортировка с ключом -r ~ reverse
 
         fi
+
 # если файл с данными пуст
 elif [[ ! -z $file_path ]] && [[ ! -s $file_path ]]; then
         echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num пуст!${NORMAL}\n"
 
-
-else
+# если файл не существует
+elif [[ -z $file_path ]]; then
         echo -e "\n${RED}ОШИБКА: файл с посещаемостью группы $group_num не найден!${NORMAL}\n"
+
 fi
 
 echo ""
+
