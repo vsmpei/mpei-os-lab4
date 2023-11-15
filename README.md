@@ -109,26 +109,26 @@ GumerovaEF        |  111111111111111111    |  18
 --------------------------------------------------------------------------
 Место |     Студент       |     Группа    |  Средний балл по попыткам
 --------------------------------------------------------------------------
-1      |   AbramovBJ        |   A-06-07     |   25
-2      |   AfoninASer       |   A-09-19     |   25
-3      |   BalkarovAA       |   A-06-19     |   25
-4      |   BolotnikovTZ     |   A-06-13     |   25
-5      |   BondarevUV       |   A-06-13     |   25
-6      |   ChincharovPC     |   A-06-16     |   25
-7      |   GlukhovUU        |   A-06-12     |   25
-8      |   KachusovUJ       |   A-06-10     |   25
-9      |   KardanevAA       |   A-06-17     |   25
-10     |   KrasotkinUI      |   A-06-07     |   25
-11     |   KrivkovVJ        |   A-06-05     |   25
-12     |   LimonovAR        |   A-06-07     |   25
-13     |   ShebyrevaVD      |   A-06-18     |   25
-14     |   SkorkinaAI       |   A-06-14     |   25
-15     |   UsovEJ           |   A-06-05     |   25
-16     |   VitayevJY        |   A-06-10     |   25
-17     |   ZhidkikhYS       |   A-06-20     |   25
-18     |   BaryshevaT       |   A-06-04     |   24
-19     |   BolotnikovWO     |   A-06-13     |   24
-20     |   BoltzmanEN       |   A-06-07     |   24
+1     |   AbramovBJ       |   A-06-07    |   25
+2     |   AfoninASer      |   A-09-19    |   25
+3     |   BalkarovAA      |   A-06-19    |   25
+4     |   BolotnikovTZ    |   A-06-13    |   25
+5     |   BondarevUV      |   A-06-13    |   25
+6     |   ChincharovPC    |   A-06-16    |   25
+7     |   GlukhovUU       |   A-06-12    |   25
+8     |   KachusovUJ      |   A-06-10    |   25
+9     |   KardanevAA      |   A-06-17    |   25
+10    |   KrasotkinUI     |   A-06-07    |   25
+11    |   KrivkovVJ       |   A-06-05    |   25
+12    |   LimonovAR       |   A-06-07    |   25
+13    |   ShebyrevaVD     |   A-06-18    |   25
+14    |   SkorkinaAI      |   A-06-14    |   25
+15    |   UsovEJ          |   A-06-05    |   25
+16    |   VitayevJY       |   A-06-10    |   25
+17    |   ZhidkikhYS      |   A-06-20    |   25
+18    |   BaryshevaT      |   A-06-04    |   24
+19    |   BolotnikovWO    |   A-06-13    |   24
+20    |   BoltzmanEN      |   A-06-07    |   24
 ```
 ### Обработанные исключения
 - Неправильный ввод ключа предмета (должен быть 1 или 2)

@@ -413,7 +413,7 @@ echo "--------------------------------------------------------------------------
 # в массив sum записывается сумма для каждого уникального значения из поля $2 с фамилией
 # в массив count - считаем количество таких записей, чтобы потом на него поделить (среднее)
 # затем в цикле просто выводим это все, потом сортируем, потом берем первые $line_count записей, такие дела
-awk -F ";" '{group[$2]=$1; sum[$2]+=$4; count[$2]++; } END {for (i in sum) print "   ", i,";", group[i],";", sum[i]/count[i];}' $file_path | sort -t ";" -k3nr -k1 | awk -F ";" '{print NR "    "$1"   "$2"        "$3}' | head -n $line_count | column -t -o "     |   "
+awk -F ";" '{group[$2]=$1; sum[$2]+=$4; count[$2]++; } END {for (i in sum) print "   ", i,";", group[i],";", sum[i]/count[i];}' $file_path | sort -t ";" -k3nr -k1 | awk -F ";" '{print NR "    "$1"   "$2"        "$3}' | head -n $line_count | column -t -o "    |   "
 # если файл с данными пуст
 elif [[ ! -z $file_path ]] && [[ ! -s $file_path ]]; then
         echo -e "\n${RED}ОШИБКА: файл TEST-$test_num с тестами пуст!${NORMAL}\n"
